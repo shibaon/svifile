@@ -11,6 +11,7 @@ use Svi\FileBundle\Classes\File;
 abstract class TinyMceUploadController extends Controller
 {
     use BundleTrait;
+    use \Svi\TengineBundle\BundleTrait;
 
 	public function imageAction(Request $request)
 	{
@@ -30,7 +31,7 @@ abstract class TinyMceUploadController extends Controller
 			$result = $file->getUrl();
 		}
 
-		$this->app->getTemplateService();
+		$this->getTemplateService();
 
         if (isset($this->app['twig']) && $this->app['twig']) {
             /** @var \Twig_Loader_Filesystem $loader */
