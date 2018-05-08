@@ -2,11 +2,11 @@
 
 namespace Svi\FileBundle\Service;
 
-use Svi\ContainerAware;
+use Svi\AppContainer;
 use Svi\FileBundle\BundleTrait;
 use Svi\FileBundle\Classes\File;
 
-class ImageService extends ContainerAware
+class ImageService extends AppContainer
 {
     use BundleTrait;
 
@@ -35,7 +35,7 @@ class ImageService extends ContainerAware
 			$this->generateImage($fileOrUri, $width, $height, $mode);
 		}
 
-		return str_replace($this->c->getApp()->getRootDir() . '/web', '', $filename);
+		return str_replace($this->app->getRootDir() . '/web', '', $filename);
 	}
 
 	public function clearCache($fileOrUri)
@@ -52,7 +52,7 @@ class ImageService extends ContainerAware
 
 	protected function generateImage(File $file, $width, $height, $mode = 0)
 	{
-		$mime = mime_content_type($this->c->getApp()->getRootDir() . '/web/files/' . $file->getUri());
+		$mime = mime_content_type($this->app->getRootDir() . '/web/files/' . $file->getUri());
 		if (!in_array(strtolower($mime), array('image/jpeg', 'image/gif', 'image/png'))) {
 			throw new \Exception('File with path ' . $file->getUri() . ' is not an image.');
 		}
@@ -70,7 +70,7 @@ class ImageService extends ContainerAware
 
 	protected function resizeImage(File $file, $width, $height, $filename, $mode = 0)
 	{
-		$mime = mime_content_type($this->c->getApp()->getRootDir() . '/web/files/' . $file->getUri());
+		$mime = mime_content_type($this->app->getRootDir() . '/web/files/' . $file->getUri());
 
 		switch (strtolower($mime)) {
 			case 'image/jpeg':
@@ -162,7 +162,7 @@ class ImageService extends ContainerAware
 
 	protected function getImageDir(File $file)
 	{
-		return $this->c->getApp()->getRootDir() . '/web/files/image/' . $file->getUriDir() . '/';
+		return $this->app->getRootDir() . '/web/files/image/' . $file->getUriDir() . '/';
 	}
 
 	protected function getImageFilename(File $file, $width, $height, $mode = 0)
