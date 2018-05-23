@@ -39,7 +39,7 @@ abstract class TinyMceUploadController extends Controller
             $loader->addPath($this->app[Bundle::class]->getDir());
         }
 
-		return $this->render('Views/TinyMceUpload/image', array(
+		return $this->render('svi/file/Views/TinyMceUpload/image', array(
 			'form' => $form,
 			'result' => $result,
 			'type' => $type,
